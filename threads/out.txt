@@ -1,0 +1,7 @@
+Is 3 a prime number? Result: true
+Is 1 a prime number? Result: false
+Is 7 a prime number? Result: true
+Is 111 a prime number? Result: false
+Is 213 a prime number? Result: false
+Is 1000 a prime number? Result: false
+Is 9372 a prime number? Result: false
