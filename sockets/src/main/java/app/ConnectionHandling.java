@@ -5,9 +5,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class SocketHandling implements Runnable {
+public class ConnectionHandling implements Runnable {
     Socket socket;
-    public SocketHandling(Socket socket) {
+    public ConnectionHandling(Socket socket) {
         this.socket = socket;
     }
 

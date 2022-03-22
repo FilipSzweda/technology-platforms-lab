@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Client {
-    String createRequest(int messagesNumber) {
+    String attemptConnection(int messagesNumber) {
         try {
             InetAddress address = InetAddress.getLocalHost();
             Socket socket = new Socket(address, 4999);
@@ -53,7 +53,7 @@ public class Client {
             if(line.equals("exit")) {
                 exit = true;
             } else {
-                System.out.println(client.createRequest(Integer.parseInt(line)));
+                System.out.println(client.attemptConnection(Integer.parseInt(line)));
             }
         }
     }
