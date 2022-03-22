@@ -7,7 +7,9 @@
     <list default="true" id="7feb5f94-82c9-46f3-867d-ec5532dc3ead" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/Message.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/SocketHandling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/SocketHandling.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,8 +38,9 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/Client" />
   </component>
-  <component name="RunManager" selected="Application.Client">
+  <component name="RunManager" selected="Application.Server">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="app.Client" />
       <module name="sockets" />
@@ -66,8 +69,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Client" />
         <item itemvalue="Application.Server" />
+        <item itemvalue="Application.Client" />
       </list>
     </recent_temporary>
   </component>

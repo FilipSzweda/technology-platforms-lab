@@ -5,41 +5,38 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class SocketHandling implements Runnable{
+public class SocketHandling implements Runnable {
     Socket socket;
     public SocketHandling(Socket socket) {
         this.socket = socket;
     }
 
     @Override
-    public void run(){
-        try (ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
-             ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream())){
+    public void run() {
+        try (ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+             ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
 
-            outputStream.writeObject("ready");
+            out.writeObject("ready");
 
-            int n = (Integer) inputStream.readObject();
+            int messagesNumber = (Integer) in.readObject();
 
-            outputStream.writeObject("ready for messages");
+            out.writeObject("ready for messages");
 
-            for(int i = 0; i < n; i++){
-                Message message = (Message) inputStream.readObject();
+            for(int i = 0; i < messagesNumber; i++) {
+                Message message = (Message) in.readObject();
                 System.out.println(message);
             }
 
-            outputStream.writeObject("finished");
-
-        } catch (IOException except){
-            except.printStackTrace();
-        } catch(ClassNotFoundException except) {
-            except.printStackTrace();
+            out.writeObject("finished");
+        } catch (IOException | ClassNotFoundException exception) {
+            exception.printStackTrace();
         } finally {
             try {
                 if(!socket.isClosed()) {
                     socket.close();
                 }
-            } catch (IOException except){
-                except.printStackTrace();
+            } catch (IOException exception) {
+                exception.printStackTrace();
             }
         }
     }

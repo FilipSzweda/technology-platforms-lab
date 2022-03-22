@@ -8,14 +8,13 @@ public class Server {
     public static void main(String[] args) {
         try {
             ServerSocket serverSocket = new ServerSocket(4999);
-            // serverSocket.setSoTimeout(2000);
+            // serverSocket.setSoTimeout(5000);
             while(true) {
                 Socket socket = serverSocket.accept();
                 new Thread(new SocketHandling(socket)).start();
             }
-        } catch (IOException except){
-            except.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
         }
     }
-
 }
