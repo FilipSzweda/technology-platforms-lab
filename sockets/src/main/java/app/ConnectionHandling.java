@@ -18,14 +18,10 @@ public class ConnectionHandling implements Runnable {
 
             out.writeObject("ready");
 
-            int messagesNumber = (Integer) in.readObject();
-
             out.writeObject("ready for messages");
 
-            for(int i = 0; i < messagesNumber; i++) {
-                Message message = (Message) in.readObject();
-                System.out.println(message);
-            }
+            Message message = (Message) in.readObject();
+            System.out.println(message);
 
             out.writeObject("finished");
         } catch (IOException | ClassNotFoundException exception) {

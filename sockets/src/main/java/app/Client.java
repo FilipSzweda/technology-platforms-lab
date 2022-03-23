@@ -26,9 +26,7 @@ public class Client {
                 return "error: server not ready for messages";
             }
 
-            for(int i = 0; i < messagesNumber; i++)  {
-                out.writeObject(new Message((i + 1), "[content]"));
-            }
+            out.writeObject(new Message((messagesNumber)));
 
             response = (String) in.readObject();
             if(!response.equals("finished")) {
@@ -48,7 +46,7 @@ public class Client {
         Client client = new Client();
         boolean exit = false;
         while(!exit) {
-            System.out.print("Type a number of messages to send or type 'exit' if you want to exit the program:\n");
+            System.out.print("Type a number or type 'exit' if you want to exit the program:\n");
             String line = scanner.nextLine();
             if(line.equals("exit")) {
                 exit = true;
