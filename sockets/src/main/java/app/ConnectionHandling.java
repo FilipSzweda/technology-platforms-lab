@@ -18,6 +18,8 @@ public class ConnectionHandling implements Runnable {
 
             out.writeObject("ready");
 
+            int messagesNumber = (Integer) in.readObject();
+
             out.writeObject("ready for messages");
 
             Message message = (Message) in.readObject();
