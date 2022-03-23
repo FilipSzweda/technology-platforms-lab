@@ -20,12 +20,6 @@ public class Client {
                 return "error: server not ready";
             }
 
-            out.writeObject(messagesNumber);
-            response = (String) in.readObject();
-            if(!response.equals("ready for messages")) {
-                return "error: server not ready for messages";
-            }
-
             out.writeObject(new Message((messagesNumber)));
 
             response = (String) in.readObject();
