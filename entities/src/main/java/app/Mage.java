@@ -30,6 +30,10 @@ public class Mage {
 
     @Override
     public String toString(){
-        return "Mage - name: " + name + ", level " + level + "$.\n";
+        if(this.tower != null) {
+            return "Mage - name: " + name + ", level: " + level + ", tower name: " + this.tower.getName();
+        } else {
+            return "Mage - name: " + name + ", level: " + level;
+        }
     }
 }
