@@ -9,20 +9,20 @@ public class TowersDatabase extends Database<Tower, String> {
         super(entityManagerFactory, Tower.class);
     }
 
-    public List<Tower> findAllWithBiggerBudget(int budget) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Tower> list = entityManager.createQuery("SELECT br FROM " + classEntity.getSimpleName() +
-                " br WHERE br.budget > " + budget, classEntity).getResultList();
-        entityManager.close();
-        return list;
-    }
-
-    public Tower findParticularTower(String name){
+    public Tower findTower(String name){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         List<Tower> list = entityManager.createQuery("SELECT br FROM " + classEntity.getSimpleName() +
                 " br WHERE br.name = '" + name + "'", classEntity).getResultList();
         entityManager.close();
         if(list.size() > 0) return list.get(0);
         else return null;
+    }
+
+    public List<Tower> findAllLower(int height) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        List<Tower> towers = entityManager.createQuery("SELECT b FROM " + classEntity.getSimpleName() +
+                " b WHERE b.height < " + height, classEntity).getResultList();
+        entityManager.close();
+        return towers;
     }
 }

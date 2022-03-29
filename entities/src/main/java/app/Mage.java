@@ -15,7 +15,7 @@ public class Mage {
     @JoinColumn(name = "tower")
     private Tower tower;
 
-    public Mage(){};
+    public Mage(){}
     public Mage(String name, int level){
         this.name = name;
         this.level = level;

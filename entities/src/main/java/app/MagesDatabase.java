@@ -11,27 +11,18 @@ public class MagesDatabase extends Database<Mage, String> {
 
     public List<Mage> findAllWithHigherLevel(int level){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Mage> list = entityManager.createQuery("SELECT b FROM " + classEntity.getSimpleName() +
+        List<Mage> mages = entityManager.createQuery("SELECT b FROM " + classEntity.getSimpleName() +
                 " b WHERE b.level > " + level, classEntity).getResultList();
         entityManager.close();
-        return list;
+        return mages;
     }
 
     public List<Mage> findAllWithHigherLevel(int level, Tower Tower){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Mage> list = entityManager.createQuery("SELECT b FROM " + classEntity.getSimpleName() +
-                " b WHERE b.level >" + level + " AND Tower = '" +
+        List<Mage> mages = entityManager.createQuery("SELECT b FROM " + classEntity.getSimpleName() +
+                " b WHERE b.level >" + level + " AND b.tower = '" +
                 Tower.getName() + "'", classEntity).getResultList();
         entityManager.close();
-        return list;
-    }
-
-    public List<Mage> findAllLessExpensiveThan(int level, Tower Tower){
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Mage> list = entityManager.createQuery("SELECT b FROM " + classEntity.getSimpleName() +
-                " b WHERE b.level <" + level + " AND Tower = '" +
-                Tower.getName() + "'", classEntity).getResultList();
-        entityManager.close();
-        return list;
+        return mages;
     }
 }

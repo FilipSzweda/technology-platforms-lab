@@ -12,19 +12,19 @@ public class Tower {
 
     @OneToMany(mappedBy="tower", fetch= FetchType.EAGER)
     private List<Mage> mages = new ArrayList<>();
-    public void addMage(Mage mage) { mages.add(mage); };
+    public void addMage(Mage mage) { mages.add(mage); }
 
-    public Tower(){};
+    public Tower(){}
     public Tower(String name, int height){
         this.name = name;
         this.height = height;
     }
 
-    public String getName(){ return this.name; };
+    public String getName(){ return this.name; }
 
     @PreRemove
     private void preRemove(){ for (Mage mage : mages) mage.setTower(null); }
 
     @Override
-    public String toString(){ return "Tower - name: " + name + ", height: " + height; };
+    public String toString(){ return "Tower - name: " + name + ", height: " + height; }
 }

@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Application {
     public static void main(String[] args) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("lab4");
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("entities");
         MagesDatabase magesDatabase = new MagesDatabase(entityManagerFactory);
         TowersDatabase towersDatabase = new TowersDatabase(entityManagerFactory);
         init(magesDatabase, towersDatabase);
@@ -21,11 +21,12 @@ public class Application {
                 
                 1. Add mage
                 2. Add tower
-                3. Show all mages with higher level than X
+                3. Delete a tower
                 4. Show all towers and mages
-                5. Delete a tower
-                6. Show a tower with level of mage less than X
-                7. Exit"""
+                5. Show all mages with higher level than X
+                6. Show a tower with level of mage higher than X
+                7. Show all towers lower than X
+                8. Exit"""
             );
             Scanner input = new Scanner(System.in);
             int option = input.nextInt();
@@ -33,70 +34,91 @@ public class Application {
                 case 1 -> {
                     System.out.print("New mage name: ");
                     String newMageName = input.next();
+
                     System.out.print("New mage level: ");
-                    int newLevel = input.nextInt();
-                    Mage newMage = new Mage(newMageName, newLevel);
+                    int newMageLevel = input.nextInt();
+
+                    Mage newMage = new Mage(newMageName, newMageLevel);
+
                     System.out.print("New mage tower (enter 'null' if there's none): ");
-                    String mageTower = input.next();
-                    if (mageTower.equals("null")) {
+                    String newMageTower = input.next();
+
+                    if (newMageTower.equals("null")) {
                         newMage.setTower(null);
                     } else {
-                        Tower tower1 = towersDatabase.findParticularTower(mageTower);
+                        Tower tower1 = towersDatabase.findTower(newMageTower);
                         newMage.setTower(tower1);
                     }
+
                     magesDatabase.add(newMage);
                 }
                 case 2 -> {
                     System.out.print("New tower name: ");
                     String newTowerName = input.next();
+
                     System.out.print("New tower height: ");
-                    int newHeight = input.nextInt();
-                    towersDatabase.add(new Tower(newTowerName, newHeight));
+                    int newTowerHeight = input.nextInt();
+
+                    towersDatabase.add(new Tower(newTowerName, newTowerHeight));
                 }
                 case 3 -> {
-                    System.out.print("Level X: ");
-                    int level = input.nextInt();
-                    List<Mage> mages = magesDatabase.findAllWithHigherLevel(level);
+                    System.out.print("Name of the tower to be deleted: ");
+                    String towerToDeleteName = input.next();
 
-                    System.out.println("Mages with level higher than " + level + ": ");
-                    for (Mage mage : mages) System.out.println(mage);
+                    Tower towerToDelete = towersDatabase.findTower(towerToDeleteName);
+
+                    if (towerToDelete == null) {
+                        System.out.println("No tower with name '" + towerToDeleteName + "'\n");
+                    } else {
+                        towersDatabase.removeEntity(towerToDelete);
+                        System.out.println("Tower removed");
+                    }
                 }
                 case 4 -> {
                     List<Tower> towers = towersDatabase.findAll();
-                    List<Mage> mages2 = magesDatabase.findAll();
+                    List<Mage> mages = magesDatabase.findAll();
 
                     System.out.println("All towers:");
                     for (Tower tower : towers) System.out.println(tower);
                     System.out.println("All mages:");
-                    for (Mage mage : mages2) System.out.println(mage);
+                    for (Mage mage : mages) System.out.println(mage);
                 }
                 case 5 -> {
-                    System.out.print("Name of the tower to be deleted: ");
-                    String towerToDelete = input.next();
-                    Tower tower2 = towersDatabase.findParticularTower(towerToDelete);
+                    System.out.print("Level X: ");
+                    int level = input.nextInt();
 
-                    if (tower2 == null) {
-                        System.out.println("No tower with name '" + towerToDelete + "'\n");
-                    } else {
-                        towersDatabase.removeEntity(tower2);
-                        System.out.println("Tower removed");
-                    }
+                    List<Mage> magesWithHigherLevel = magesDatabase.findAllWithHigherLevel(level);
+
+                    System.out.println("Mages with level higher than " + level + ": ");
+                    for (Mage mage : magesWithHigherLevel) System.out.println(mage);
                 }
                 case 6 -> {
                     System.out.print("Tower name: ");
-                    String towerToShow = input.next();
-                    Tower tower3 = towersDatabase.findParticularTower(towerToShow);
+                    String towerToShowName = input.next();
 
-                    if (tower3 == null) {
-                        System.out.println("No tower with name '" + towerToShow + "'\n");
+                    Tower towerToShow = towersDatabase.findTower(towerToShowName);
+
+                    if (towerToShow == null) {
+                        System.out.println("No tower with name '" + towerToShowName + "'\n");
                     } else {
                         System.out.print("Level X: ");
                         int levelToShow = input.nextInt();
-                        List<Mage> magesToShow = magesDatabase.findAllLessExpensiveThan(levelToShow, tower3);
+
+                        List<Mage> magesToShow = magesDatabase.findAllWithHigherLevel(levelToShow, towerToShow);
+
                         for (Mage mage : magesToShow) System.out.println(mage);
                     }
                 }
-                case 7 -> exit = true;
+                case 7 -> {
+                    System.out.print("Height X: ");
+                    int height = input.nextInt();
+
+                    List<Tower> lowerTowers = towersDatabase.findAllLower(height);
+
+                    System.out.println("Towers lower than " + height + ": ");
+                    for (Tower tower : lowerTowers) System.out.println(tower);
+                }
+                case 8 -> exit = true;
                 default -> System.out.println("Invalid option");
             }
         }
