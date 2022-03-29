@@ -1,0 +1,35 @@
+package app;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
+public class Mage {
+    @Id
+    private String name;
+    private int level;
+
+    @ManyToOne
+    @JoinColumn(name = "tower")
+    private Tower tower;
+
+    public Mage(){};
+    public Mage(String name, int level){
+        this.name = name;
+        this.level = level;
+    }
+
+    public void setTower(Tower tower){
+        this.tower = tower;
+        if(tower != null){
+            tower.addMage(this);
+        }
+    }
+
+    @Override
+    public String toString(){
+        return "Mage - name: " + name + ", level " + level + "$.\n";
+    }
+}
