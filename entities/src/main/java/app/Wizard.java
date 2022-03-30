@@ -28,8 +28,16 @@ public class Wizard {
         }
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString(){
-        return name;
+        if(this.school != null) {
+            return "Wizard - name: " + name + ", level: " + level + ", school name: " + this.school.getName();
+        } else {
+            return "Wizard - name: " + name + ", level: " + level + ", no school";
+        }
     }
 }

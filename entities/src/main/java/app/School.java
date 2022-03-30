@@ -26,5 +26,5 @@ public class School {
     private void preRemove(){ for (Wizard wizard : wizards) wizard.setSchool(null); }
 
     @Override
-    public String toString(){ return name; }
+    public String toString(){ return "School - name: " + name + ", influence: " + influence; }
 }

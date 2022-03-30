@@ -24,7 +24,7 @@ public class Application {
                 3. Delete a school
                 4. Show all schools and wizards
                 5. Show all wizards with higher level than X
-                6. Show a school with level of wizard higher than X
+                6. Show wizards from school X with level higher than Y
                 7. Show all schools with influence higher than X
                 8. Exit"""
             );
@@ -91,7 +91,7 @@ public class Application {
                     for (Wizard wizard : wizardsWithHigherLevel) System.out.println(wizard);
                 }
                 case 6 -> {
-                    System.out.print("School name: ");
+                    System.out.print("School X: ");
                     String schoolToShowName = input.next();
 
                     School schoolToShow = schoolsDatabase.findSchool(schoolToShowName);
@@ -99,12 +99,12 @@ public class Application {
                     if (schoolToShow == null) {
                         System.out.println("No school with name '" + schoolToShowName + "'\n");
                     } else {
-                        System.out.print("Level X: ");
+                        System.out.print("Level Y: ");
                         int levelToShow = input.nextInt();
 
                         List<Wizard> wizardsToShow = wizardsDatabase.findAllWithHigherLevel(levelToShow, schoolToShow);
 
-                        for (Wizard wizard : wizardsToShow) System.out.println(wizard);
+                        for (Wizard wizard : wizardsToShow) System.out.println(wizard.getName());
                     }
                 }
                 case 7 -> {
@@ -114,7 +114,7 @@ public class Application {
                     List<School> higherSchools = schoolsDatabase.findAllHigher(influence);
 
                     System.out.println("Schools with influence higher than " + influence + ": ");
-                    for (School school : higherSchools) System.out.println(school);
+                    for (School school : higherSchools) System.out.println(school.getName());
                 }
                 case 8 -> exit = true;
                 default -> System.out.println("Invalid option");

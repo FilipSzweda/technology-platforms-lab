@@ -21,7 +21,7 @@ public class WizardsDatabase extends Database<Wizard, String> {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         List<Wizard> wizards = entityManager.createQuery("SELECT p FROM " + classEntity.getSimpleName() +
                 " p WHERE p.level >" + level + " AND p.school = '" +
-                school.getName() + "'", classEntity).getResultList();
+                school.getName() + "' order by p.name", classEntity).getResultList();
         entityManager.close();
         return wizards;
     }
