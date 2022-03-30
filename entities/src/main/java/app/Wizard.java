@@ -22,8 +22,8 @@ public class Wizard {
     }
 
     public void setSchool(School school){
+        this.school = school;
         if(school != null){
-            this.school = school;
             school.addWizard(this);
         }
     }
