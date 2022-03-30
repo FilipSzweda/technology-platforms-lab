@@ -11,16 +11,16 @@ public class MagesDatabase extends Database<Mage, String> {
 
     public List<Mage> findAllWithHigherLevel(int level){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Mage> mages = entityManager.createQuery("SELECT b FROM " + classEntity.getSimpleName() +
-                " b WHERE b.level > " + level, classEntity).getResultList();
+        List<Mage> mages = entityManager.createQuery("SELECT p FROM " + classEntity.getSimpleName() +
+                " p WHERE p.level > " + level, classEntity).getResultList();
         entityManager.close();
         return mages;
     }
 
     public List<Mage> findAllWithHigherLevel(int level, Tower Tower){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Mage> mages = entityManager.createQuery("SELECT b FROM " + classEntity.getSimpleName() +
-                " b WHERE b.level >" + level + " AND b.tower = '" +
+        List<Mage> mages = entityManager.createQuery("SELECT p FROM " + classEntity.getSimpleName() +
+                " p WHERE p.level >" + level + " AND p.tower = '" +
                 Tower.getName() + "'", classEntity).getResultList();
         entityManager.close();
         return mages;

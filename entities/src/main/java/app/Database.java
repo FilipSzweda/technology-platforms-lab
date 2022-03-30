@@ -25,7 +25,7 @@ public abstract class Database<E, ID> {
 
     public List<E> findAll(){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<E> list = entityManager.createQuery("SELECT e FROM " + classEntity.getSimpleName() + " e", classEntity).getResultList();
+        List<E> list = entityManager.createQuery("SELECT p FROM " + classEntity.getSimpleName() + " p", classEntity).getResultList();
         entityManager.close();
         return list;
     }
