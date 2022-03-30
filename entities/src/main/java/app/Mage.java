@@ -22,7 +22,10 @@ public class Mage {
     }
 
     public void setTower(Tower tower){
-        tower.addMage(this);
+        if(tower != null){
+            this.tower = tower;
+            tower.addMage(this);
+        }
     }
 
     @Override
