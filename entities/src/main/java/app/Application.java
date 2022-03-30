@@ -40,12 +40,10 @@ public class Application {
 
                     Mage newMage = new Mage(newMageName, newMageLevel);
 
-                    System.out.print("New mage tower (enter 'null' if there's none): ");
+                    System.out.print("New mage tower (enter 'none' if there's none): ");
                     String newMageTower = input.next();
 
-                    if (newMageTower.equals("null")) {
-                        newMage.setTower(null);
-                    } else {
+                    if (!newMageTower.equals("none")) {
                         Tower tower1 = towersDatabase.findTower(newMageTower);
                         newMage.setTower(tower1);
                     }

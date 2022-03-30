@@ -13,7 +13,7 @@ public class Mage {
 
     @ManyToOne
     @JoinColumn(name = "tower")
-    private Tower tower;
+    private Tower tower = null;
 
     public Mage(){}
     public Mage(String name, int level){
@@ -33,7 +33,7 @@ public class Mage {
         if(this.tower != null) {
             return "Mage - name: " + name + ", level: " + level + ", tower name: " + this.tower.getName();
         } else {
-            return "Mage - name: " + name + ", level: " + level;
+            return "Mage - name: " + name + ", level: " + level + ", no tower";
         }
     }
 }
