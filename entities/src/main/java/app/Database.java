@@ -38,4 +38,12 @@ public abstract class Database<E, ID> {
         entityTransaction.commit();
         entityManager.close();
     }
+
+    public List<E> findByName(String name){
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        List<E> found = entityManager.createQuery("SELECT p FROM " + classEntity.getSimpleName() +
+                " p WHERE p.name ='" + name + "'", classEntity).getResultList();
+        entityManager.close();
+        return found;
+    }
 }

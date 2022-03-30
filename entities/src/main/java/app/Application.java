@@ -35,29 +35,37 @@ public class Application {
                     System.out.print("New wizard name: ");
                     String newWizardName = input.next();
 
-                    System.out.print("New wizard level: ");
-                    int newWizardLevel = input.nextInt();
+                    if(wizardsDatabase.findByName(newWizardName).size() == 0) {
+                        System.out.print("New wizard level: ");
+                        int newWizardLevel = input.nextInt();
 
-                    Wizard newWizard = new Wizard(newWizardName, newWizardLevel);
+                        Wizard newWizard = new Wizard(newWizardName, newWizardLevel);
 
-                    System.out.print("New wizard school (enter 'none' if there's none): ");
-                    String newWizardSchool = input.next();
+                        System.out.print("New wizard school (enter 'none' if there's none): ");
+                        String newWizardSchool = input.next();
 
-                    if (!newWizardSchool.equals("none")) {
-                        School school1 = schoolsDatabase.findSchool(newWizardSchool);
-                        newWizard.setSchool(school1);
+                        if (!newWizardSchool.equals("none")) {
+                            School school1 = schoolsDatabase.findSchool(newWizardSchool);
+                            newWizard.setSchool(school1);
+                        }
+
+                        wizardsDatabase.add(newWizard);
+                    } else {
+                        System.out.print("Can't use this name\n");
                     }
-
-                    wizardsDatabase.add(newWizard);
                 }
                 case 2 -> {
                     System.out.print("New school name: ");
                     String newSchoolName = input.next();
 
-                    System.out.print("New school influence: ");
-                    int newSchoolInfluence = input.nextInt();
+                    if(schoolsDatabase.findByName(newSchoolName).size() == 0) {
+                        System.out.print("New school influence: ");
+                        int newSchoolInfluence = input.nextInt();
 
-                    schoolsDatabase.add(new School(newSchoolName, newSchoolInfluence));
+                        schoolsDatabase.add(new School(newSchoolName, newSchoolInfluence));
+                    } else {
+                        System.out.print("Can't use this name\n");
+                    }
                 }
                 case 3 -> {
                     System.out.print("Name of the school to be deleted: ");
