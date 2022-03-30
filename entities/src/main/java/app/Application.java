@@ -8,113 +8,113 @@ import java.util.Scanner;
 public class Application {
     public static void main(String[] args) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("entities");
-        MagesDatabase magesDatabase = new MagesDatabase(entityManagerFactory);
-        TowersDatabase towersDatabase = new TowersDatabase(entityManagerFactory);
-        init(magesDatabase, towersDatabase);
+        WizardsDatabase wizardsDatabase = new WizardsDatabase(entityManagerFactory);
+        SchoolsDatabase schoolsDatabase = new SchoolsDatabase(entityManagerFactory);
+        init(wizardsDatabase, schoolsDatabase);
     }
 
-    public static void init(MagesDatabase magesDatabase, TowersDatabase towersDatabase){
+    public static void init(WizardsDatabase wizardsDatabase, SchoolsDatabase schoolsDatabase){
         boolean exit = false;
         while(!exit) {
             System.out.println(
                 """
                 
-                1. Add mage
-                2. Add tower
-                3. Delete a tower
-                4. Show all towers and mages
-                5. Show all mages with higher level than X
-                6. Show a tower with level of mage higher than X
-                7. Show all towers lower than X
+                1. Add wizard
+                2. Add school
+                3. Delete a school
+                4. Show all schools and wizards
+                5. Show all wizards with higher level than X
+                6. Show a school with level of wizard higher than X
+                7. Show all schools with influence higher than X
                 8. Exit"""
             );
             Scanner input = new Scanner(System.in);
             int option = input.nextInt();
             switch (option) {
                 case 1 -> {
-                    System.out.print("New mage name: ");
-                    String newMageName = input.next();
+                    System.out.print("New wizard name: ");
+                    String newWizardName = input.next();
 
-                    System.out.print("New mage level: ");
-                    int newMageLevel = input.nextInt();
+                    System.out.print("New wizard level: ");
+                    int newWizardLevel = input.nextInt();
 
-                    Mage newMage = new Mage(newMageName, newMageLevel);
+                    Wizard newWizard = new Wizard(newWizardName, newWizardLevel);
 
-                    System.out.print("New mage tower (enter 'none' if there's none): ");
-                    String newMageTower = input.next();
+                    System.out.print("New wizard school (enter 'none' if there's none): ");
+                    String newWizardSchool = input.next();
 
-                    if (!newMageTower.equals("none")) {
-                        Tower tower1 = towersDatabase.findTower(newMageTower);
-                        newMage.setTower(tower1);
+                    if (!newWizardSchool.equals("none")) {
+                        School school1 = schoolsDatabase.findSchool(newWizardSchool);
+                        newWizard.setSchool(school1);
                     }
 
-                    magesDatabase.add(newMage);
+                    wizardsDatabase.add(newWizard);
                 }
                 case 2 -> {
-                    System.out.print("New tower name: ");
-                    String newTowerName = input.next();
+                    System.out.print("New school name: ");
+                    String newSchoolName = input.next();
 
-                    System.out.print("New tower height: ");
-                    int newTowerHeight = input.nextInt();
+                    System.out.print("New school influence: ");
+                    int newSchoolInfluence = input.nextInt();
 
-                    towersDatabase.add(new Tower(newTowerName, newTowerHeight));
+                    schoolsDatabase.add(new School(newSchoolName, newSchoolInfluence));
                 }
                 case 3 -> {
-                    System.out.print("Name of the tower to be deleted: ");
-                    String towerToDeleteName = input.next();
+                    System.out.print("Name of the school to be deleted: ");
+                    String schoolToDeleteName = input.next();
 
-                    Tower towerToDelete = towersDatabase.findTower(towerToDeleteName);
+                    School schoolToDelete = schoolsDatabase.findSchool(schoolToDeleteName);
 
-                    if (towerToDelete == null) {
-                        System.out.println("No tower with name '" + towerToDeleteName + "'\n");
+                    if (schoolToDelete == null) {
+                        System.out.println("No school with name '" + schoolToDeleteName + "'\n");
                     } else {
-                        towersDatabase.removeEntity(towerToDelete);
-                        System.out.println("Tower removed");
+                        schoolsDatabase.removeEntity(schoolToDelete);
+                        System.out.println("School removed");
                     }
                 }
                 case 4 -> {
-                    List<Tower> towers = towersDatabase.findAll();
-                    List<Mage> mages = magesDatabase.findAll();
+                    List<School> schools = schoolsDatabase.findAll();
+                    List<Wizard> wizards = wizardsDatabase.findAll();
 
-                    System.out.println("All towers:");
-                    for (Tower tower : towers) System.out.println(tower);
-                    System.out.println("All mages:");
-                    for (Mage mage : mages) System.out.println(mage);
+                    System.out.println("All schools:");
+                    for (School school : schools) System.out.println(school);
+                    System.out.println("All wizards:");
+                    for (Wizard wizard : wizards) System.out.println(wizard);
                 }
                 case 5 -> {
                     System.out.print("Level X: ");
                     int level = input.nextInt();
 
-                    List<Mage> magesWithHigherLevel = magesDatabase.findAllWithHigherLevel(level);
+                    List<Wizard> wizardsWithHigherLevel = wizardsDatabase.findAllWithHigherLevel(level);
 
-                    System.out.println("Mages with level higher than " + level + ": ");
-                    for (Mage mage : magesWithHigherLevel) System.out.println(mage);
+                    System.out.println("Wizards with level higher than " + level + ": ");
+                    for (Wizard wizard : wizardsWithHigherLevel) System.out.println(wizard);
                 }
                 case 6 -> {
-                    System.out.print("Tower name: ");
-                    String towerToShowName = input.next();
+                    System.out.print("School name: ");
+                    String schoolToShowName = input.next();
 
-                    Tower towerToShow = towersDatabase.findTower(towerToShowName);
+                    School schoolToShow = schoolsDatabase.findSchool(schoolToShowName);
 
-                    if (towerToShow == null) {
-                        System.out.println("No tower with name '" + towerToShowName + "'\n");
+                    if (schoolToShow == null) {
+                        System.out.println("No school with name '" + schoolToShowName + "'\n");
                     } else {
                         System.out.print("Level X: ");
                         int levelToShow = input.nextInt();
 
-                        List<Mage> magesToShow = magesDatabase.findAllWithHigherLevel(levelToShow, towerToShow);
+                        List<Wizard> wizardsToShow = wizardsDatabase.findAllWithHigherLevel(levelToShow, schoolToShow);
 
-                        for (Mage mage : magesToShow) System.out.println(mage);
+                        for (Wizard wizard : wizardsToShow) System.out.println(wizard);
                     }
                 }
                 case 7 -> {
-                    System.out.print("Height X: ");
-                    int height = input.nextInt();
+                    System.out.print("Influence X: ");
+                    int influence = input.nextInt();
 
-                    List<Tower> lowerTowers = towersDatabase.findAllLower(height);
+                    List<School> higherSchools = schoolsDatabase.findAllHigher(influence);
 
-                    System.out.println("Towers lower than " + height + ": ");
-                    for (Tower tower : lowerTowers) System.out.println(tower);
+                    System.out.println("Schools with influence higher than " + influence + ": ");
+                    for (School school : higherSchools) System.out.println(school);
                 }
                 case 8 -> exit = true;
                 default -> System.out.println("Invalid option");
