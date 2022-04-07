@@ -35,7 +35,7 @@ public class MageRepositoryTest {
 
     @Test
     public void findExistentMageReturnsNotEmptyOptional() {
-        assertThat(mageRepository.find(nonexistentName)).isNotEqualTo(Optional.empty());
+        assertThat(mageRepository.find(existentName)).isNotEqualTo(Optional.empty());
     }
 
     @Test

@@ -23,10 +23,9 @@ public class MageController {
         return "done";
     }
 
-    public String save(String name, String level) {
-        Mage foo = new Mage(name,Integer.parseInt(level));
+    public String save(DTO dto) {
         try {
-            this.repository.save(foo);
+            this.repository.save(new Mage(dto.name, dto.level));
         } catch(IllegalArgumentException ex) {
             return "bad request";
         }
