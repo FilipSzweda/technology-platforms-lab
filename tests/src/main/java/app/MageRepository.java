@@ -18,13 +18,13 @@ public class MageRepository {
     public void delete(String name) throws IllegalArgumentException {
         Mage mage = collection.stream().filter(currentMage ->
                 currentMage.getName().equals(name)).findFirst().orElseThrow(() ->
-                new IllegalArgumentException("Mage " + name + " does not exist."));
+                new IllegalArgumentException("Mage '" + name + "' does not exist."));
         collection.remove(mage);
     }
 
     public void save(Mage mage) throws IllegalArgumentException {
         if(this.collection.contains(mage)) {
-            throw new IllegalArgumentException("Mage " + mage.getName() + " does already exist.");
+            throw new IllegalArgumentException("Mage '" + mage.getName() + "' does already exist.");
         } else {
             this.collection.add(mage);
         }
