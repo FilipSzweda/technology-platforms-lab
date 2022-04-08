@@ -12,58 +12,55 @@ public class MageControllerTest {
     private MageRepository mageRepository;
     private MageController mageController;
 
+    private final String nonexistentName = "There does not exist a mage with this name";
+    private final String existentName = "TestMage";
+    private final Mage existentMage = new Mage(existentName, 10);
+
     @BeforeEach
-    public void init(){
+    public void initialize(){
         mageRepository = mock(MageRepository.class);
         mageController = new MageController(mageRepository);
     }
 
     @Test
-    public void testDeleteFoundMage(){
-        String mageName = "name";
-        assertThat(mageController.delete(mageName)).isEqualTo("done");
+    public void deleteExistentMageReturnsDone(){
+        assertThat(mageController.delete(existentName)).isEqualTo("done");
     }
 
     @Test
-    public void testDeleteNotFoundMage() {
-        String mageName = "bad name";
-        doThrow(new IllegalArgumentException("Mage " + mageName + " not found")).when(mageRepository).delete(mageName);
-        assertThat(mageController.delete(mageName)).isEqualTo("not found");
+    public void deleteNonexistentMageReturnsNotFound() {
+        doThrow(new IllegalArgumentException("Mage '" + nonexistentName
+                + "' does not exist.")).when(mageRepository).delete(nonexistentName);
+        assertThat(mageController.delete(nonexistentName)).isEqualTo("not found");
     }
 
     @Test
-    public void testFindFoundMage(){
-        String mageName = "name";
-        Mage mage = new Mage(mageName, 3);
-        doReturn(Optional.of(mage)).when(mageRepository).find(mageName);
-        assertThat(mageController.find(mageName)).isEqualTo(mage.toString());
+    public void findNonexistentMageReturnsNotFound(){
+        doReturn(Optional.empty()).when(mageRepository).find(nonexistentName);
+        assertThat(mageController.find(nonexistentName)).isEqualTo("not found");
     }
 
     @Test
-    public void testFindNotFoundMage(){
-        String mageName = "bad name";
-        doReturn(Optional.empty()).when(mageRepository).find(mageName);
-        assertThat(mageController.find(mageName)).isEqualTo("not found");
+    public void findReturnsFoundMageString(){
+        doReturn(Optional.of(existentMage)).when(mageRepository).find(existentName);
+        assertThat(mageController.find(existentName)).isEqualTo(existentMage.toString());
     }
 
     @Test
-    public void testSaveMageWithExistingKey(){
-        String mageName = "existing name";
-        Mage mage = new Mage(mageName, 1);
-        doThrow(new IllegalArgumentException("Mage with name " + mage.getName()
-                + " already exist")).when(mageRepository).save(any(Mage.class));
+    public void saveNonexistentMageReturnsDone(){
         DTO dto = new DTO();
-        dto.name = mage.getName();
-        dto.level = mage.getLevel();
-        assertThat(mageController.save(dto)).isEqualTo("bad request");
-    }
-
-    @Test
-    public void testSaveMageWithNonExistingKey(){
-        String mageName = "name";
-        DTO dto = new DTO();
-        dto.name = mageName;
-        dto.level = 3;
+        dto.name = existentName;
+        dto.level = 10;
         assertThat(mageController.save(dto)).isEqualTo("done");
+    }
+
+    @Test
+    public void saveExistentMageReturnsBadRequest(){
+        doThrow(new IllegalArgumentException("Mage '" + existentMage.getName()
+                + "' does already exist.")).when(mageRepository).save(any(Mage.class));
+        DTO dto = new DTO();
+        dto.name = existentMage.getName();
+        dto.level = existentMage.getLevel();
+        assertThat(mageController.save(dto)).isEqualTo("bad request");
     }
 }

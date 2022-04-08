@@ -12,9 +12,10 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 public class MageRepositoryTest {
     private MageRepository mageRepository;
-    private String nonexistentName = "There does not exist a mage with this name";
-    private String existentName = "TestMage";
-    private Mage existentMage = new Mage(existentName, 10);
+
+    private final String nonexistentName = "There does not exist a mage with this name";
+    private final String existentName = "TestMage";
+    private final Mage existentMage = new Mage(existentName, 10);
 
     @BeforeEach
     void createTestCollection(){

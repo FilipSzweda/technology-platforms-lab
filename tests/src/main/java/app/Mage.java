@@ -16,4 +16,9 @@ public class Mage {
     public int getLevel() {
         return level;
     }
+
+    @Override
+    public String toString() {
+        return "Mage{" + "name='" + name + '\'' + ", level=" + level + '}';
+    }
 }
