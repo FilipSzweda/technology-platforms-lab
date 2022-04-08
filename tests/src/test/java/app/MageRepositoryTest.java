@@ -26,7 +26,8 @@ public class MageRepositoryTest {
 
     @Test
     public void deleteNonexistentMageThrows() {
-        assertThatThrownBy(() -> mageRepository.delete(nonexistentName)).hasMessage("Mage '" + nonexistentName + "' does not exist.");
+        assertThatThrownBy(() -> mageRepository.delete(nonexistentName)).hasMessage("Mage '"
+                + nonexistentName + "' does not exist.");
     }
 
     @Test
@@ -41,6 +42,7 @@ public class MageRepositoryTest {
 
     @Test
     public void saveExistentMageThrows() {
-        assertThatThrownBy(() -> mageRepository.save(existentMage)).hasMessage("Mage '" + existentMage.getName() + "' does already exist.");
+        assertThatThrownBy(() -> mageRepository.save(existentMage)).hasMessage("Mage '"
+                + existentMage.getName() + "' does already exist.");
     }
 }
