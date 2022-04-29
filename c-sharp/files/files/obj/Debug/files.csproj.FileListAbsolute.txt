@@ -1,0 +1,7 @@
+D:\workspaces\technology-platforms-lab\c-sharp\files\files\bin\Debug\files.exe.config
+D:\workspaces\technology-platforms-lab\c-sharp\files\files\bin\Debug\files.exe
+D:\workspaces\technology-platforms-lab\c-sharp\files\files\bin\Debug\files.pdb
+D:\workspaces\technology-platforms-lab\c-sharp\files\files\obj\Debug\files.csproj.AssemblyReference.cache
+D:\workspaces\technology-platforms-lab\c-sharp\files\files\obj\Debug\files.csproj.CoreCompileInputs.cache
+D:\workspaces\technology-platforms-lab\c-sharp\files\files\obj\Debug\files.exe
+D:\workspaces\technology-platforms-lab\c-sharp\files\files\obj\Debug\files.pdb
