@@ -36,35 +36,24 @@ public class DirectoryInfoExt : FileSystemInfoExt{
 		}
 	}
 
-	public static FileSystemInfo FindOldest(DirectoryInfo current, FileSystemInfo oldest){
-		foreach (var content in current.EnumerateFileSystemInfos()){
+	public static DateTime FindOldest(DirectoryInfo directory, DateTime oldest){
+		foreach (var content in directory.EnumerateFileSystemInfos()){
 			if (content.GetType() == typeof(DirectoryInfo)){
-				FileSystemInfo tmp = FindOldest((DirectoryInfo)content, oldest);
-				if (tmp.CreationTime > oldest.CreationTime){
+				DateTime tmp = FindOldest((DirectoryInfo)content, oldest);
+				if (tmp < oldest){
 					oldest = tmp;
 				}
 			}
-			if (content.CreationTime > oldest.CreationTime){
-				oldest = content;
+			if (content.CreationTime < oldest){
+				oldest = content.CreationTime;
 			}
 		}
 		return oldest;
 	}
 
 	protected internal void PrintOldest(){
-		FileSystemInfo oldest = this.originalDirectory;
-		foreach (var content in this.originalDirectory.EnumerateFileSystemInfos()){
-			if (content.GetType() == typeof(DirectoryInfo)){
-				FileSystemInfo tmp = FindOldest((DirectoryInfo)content, oldest);
-				if (tmp.CreationTime > oldest.CreationTime){
-					oldest = tmp;
-				}
-			}
-			if (content.CreationTime > oldest.CreationTime){
-				oldest = content;
-			}
-		}
-		Console.WriteLine("Najstarszy plik: " + oldest.Name);
+		DateTime oldest = FindOldest(this.originalDirectory, this.originalDirectory.CreationTime);
+		Console.WriteLine("\nNajstarszy plik: " + oldest + "\n");
 	}
 
 	public IDictionary<string, int> GetCollection(IComparer<string> cmp){
