@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comparer.cs" />
     <Compile Include="DirectoryInfoExt.cs" />
     <Compile Include="FileSystemInfoExt.cs" />
     <Compile Include="FileInfoExt.cs" />

@@ -18,6 +18,8 @@ namespace files{
             DirectoryInfoExt directoryInfoExt = new DirectoryInfoExt(new DirectoryInfo(directoryPath));
             directoryInfoExt.Print();
             directoryInfoExt.PrintOldest();
+            directoryInfoExt.CreateSortedAndSerialize();
+            directoryInfoExt.DeserializeAndPrint();
 
             Console.WriteLine("Press enter to exit the program.");
             Console.ReadLine();
