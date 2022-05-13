@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:file_browser"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <DockPanel>
@@ -15,7 +14,10 @@
             </MenuItem>
         </Menu>
         <TextBox AcceptsReturn="True" />
-        <TreeView Name="MyTreeView" HorizontalAlignment="Left" VerticalAlignment="Top">
-        </TreeView>
+        <TreeView x:Name="myTreeView" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <StatusBar x:Name="statusBar" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="300" Margin="0,300,0,0" RenderTransformOrigin="0.5,0.6">
+            <TextBlock x:Name="currentStatus" TextWrapping="Wrap" Text="----"/>
+        </StatusBar>
+        <ScrollViewer x:Name="scrollViewer" HorizontalAlignment="Left" Height="300" Margin="335,0,0,0" VerticalAlignment="Top" Width="400"/>
     </DockPanel>
 </Window>
