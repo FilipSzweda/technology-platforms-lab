@@ -16,7 +16,7 @@ namespace file_browser {
             bool isFile = (bool)radioFile.IsChecked;
             bool isDirectory = (bool)radioDirectory.IsChecked;
             if (isFile && !Regex.IsMatch(textName.Text, "^[a-zA-Z0-9_~-]{1,8}(.txt|.php|.html)$")) {
-                MessageBox.Show("Wrong name!", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Invalid name.", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else {
                 string name = textName.Text;
